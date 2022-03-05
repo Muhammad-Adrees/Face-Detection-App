@@ -15,12 +15,10 @@ function App() {
       alert("Field cannot empty");
     }
     else {
-      // const image=document.getElementById('img-detect');
-      // image.nextElementSibling.style='';
-      // console.log( image.nextElementSibling)
+      
       setImgLink(link);
       console.log("Button link clicked")
-      //console.log(link);
+
 
     }
   }
@@ -48,14 +46,14 @@ function App() {
     console.log("Enter in call api:")
     const raw = JSON.stringify({
       "user_app_id": {
-        "user_id": "4iwybyrslkmu",
-        "app_id": "fc702a4d941c43099ddea03d76b92b97"
+        "user_id": "user_id", // insert you clarifai account user id
+        "app_id": "app_id" // insert you clarifai account app id
       },
       "inputs": [
         {
           "data": {
             "image": {
-              "url": ImgLink
+              "url": "Image link" // image url which you want to process
             }
           }
         }
@@ -66,7 +64,7 @@ function App() {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Authorization': 'Key 58459a617dac45f599d41a335733d9c2'
+        'Authorization': 'Key {your Api key here}' // add api key here
       },
       body: raw
     };
@@ -75,7 +73,7 @@ function App() {
     // https://api.clarifai.com/v2/models/{YOUR_MODEL_ID}/outputs
     // this will default to the latest version_id
 
-    fetch("https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c5c8824be4822abe105/outputs", requestOptions)
+    fetch("https://api.clarifai.com/v2/models/{YOUR_MODEL_ID}/outputs", requestOptions)
     .then(response => response.text())
     .then(result =>displayFaceLoc(calculateFaceLoc(JSON.parse(result).outputs[0].data.regions)))
     .catch(error => console.log('error', error));
